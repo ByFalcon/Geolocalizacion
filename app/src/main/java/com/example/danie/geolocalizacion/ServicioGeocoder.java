@@ -19,7 +19,7 @@ public class ServicioGeocoder extends IntentService {
 
     protected ResultReceiver receiver;
 
-    public final class Constant {
+    public final class Constants {
         public static final int SUCCES_RESULT = 0;
         public static final int FAILURE_RESULT = 1;
         public static final String PACKAGE_NAME = "com.google.android.gms.location.sample.locationaddress";
@@ -42,8 +42,8 @@ public class ServicioGeocoder extends IntentService {
         }
         String errorMessage = "";
 
-        Location location = intent.getParcelableExtra(Constant.LOCATION_DATA_EXTRA);
-        receiver = intent.getParcelableExtra(Constant.RECEIVER);
+        Location location = intent.getParcelableExtra(Constants.LOCATION_DATA_EXTRA);
+        receiver = intent.getParcelableExtra(Constants.RECEIVER);
 
         List<Address> addresses = null;
         try{
@@ -64,7 +64,7 @@ public class ServicioGeocoder extends IntentService {
                 errorMessage = "no hay dirección";
 
             }
-            deliverResultToReceiver(Constant.FAILURE_RESULT, errorMessage);
+            deliverResultToReceiver(Constants.FAILURE_RESULT, errorMessage);
         } else{
             Address address = addresses.get(0);
             String resultado = "";
@@ -80,13 +80,13 @@ public class ServicioGeocoder extends IntentService {
                 resultado += "\n" + address.getAddressLine(i);
             }
 
-            deliverResultToReceiver(Constant.SUCCES_RESULT, resultado);
+            deliverResultToReceiver(Constants.SUCCES_RESULT, resultado);
         }
     }
 
     private void deliverResultToReceiver(int resultCode, String message){
         Bundle bundle = new Bundle();
-        bundle.putString(Constant.RESULT_DATA_KEY, message);
+        bundle.putString(Constants.RESULT_DATA_KEY, message);
         receiver.send(resultCode, bundle);
     }
 }

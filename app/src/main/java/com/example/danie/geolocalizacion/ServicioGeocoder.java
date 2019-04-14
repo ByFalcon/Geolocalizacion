@@ -49,7 +49,7 @@ public class ServicioGeocoder extends IntentService {
         try{
             addresses = geocoder.getFromLocation(
                     location.getLatitude(),
-                    location.getAltitude(),
+                    location.getLongitude(),
                     10);
         } catch (IOException ioException) {
             errorMessage = "servicio no disponible";
@@ -72,16 +72,28 @@ public class ServicioGeocoder extends IntentService {
                 resultado = "";
                 for (int i = 0; i <= address1.getMaxAddressLineIndex(); i++){
                     resultado+="\n" + address1.getAddressLine(i);
+                    Log.v("direcciones1", address1.getAddressLine(i));
                 }
 
             }
             resultado = "";
             for (int i = 0; i <= address.getMaxAddressLineIndex(); i++){
                 resultado += "\n" + address.getAddressLine(i);
+                Log.v("direcciones", address.getAddressLine(i));
             }
+
+            String[] partes = resultado.split(",");
+            String localidad = partes[2] +","+ partes[3];
+            String pais = partes[4];
+            guardarDireccion(localidad.trim(), pais.trim());
 
             deliverResultToReceiver(Constants.SUCCES_RESULT, resultado);
         }
+    }
+
+    private void guardarDireccion(String localidad, String pais) {
+        Log.v("direcciones", localidad);
+        Log.v("direcciones", pais);
     }
 
     private void deliverResultToReceiver(int resultCode, String message){

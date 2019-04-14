@@ -23,11 +23,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity {
 
-//https://developer.android.com/training/location
+    //https://developer.android.com/training/location
     //https://github.com/googlesamples/android-play-location/blob/master/LocationUpdates/app/src/main/java/com/google/android/gms/location/sample/locationupdates/MainActivity.java
 
     private static final int PERMISO_GPS = 1;
-    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = "ZZZ";
 
     private AddressResultReceiver resultReceiver;
     private FusedLocationProviderClient fusedLocationClient;

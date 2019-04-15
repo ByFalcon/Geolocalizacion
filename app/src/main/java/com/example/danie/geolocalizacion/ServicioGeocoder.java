@@ -85,6 +85,7 @@ public class ServicioGeocoder extends IntentService {
             String[] partes = resultado.split(",");
             String localidad = partes[2] +","+ partes[3];
             String pais = partes[4];
+
             guardarDireccion(localidad.trim(), pais.trim());
 
             deliverResultToReceiver(Constants.SUCCES_RESULT, resultado);
@@ -92,8 +93,23 @@ public class ServicioGeocoder extends IntentService {
     }
 
     private void guardarDireccion(String localidad, String pais) {
-        Log.v("direcciones", localidad);
-        Log.v("direcciones", pais);
+        Log.v("direcciones", "Localidad: " + localidad);
+        Log.v("direcciones", "Pais: " + pais);
+        String numeros = "0123456789";
+        String localidadFiltrada = "";
+        boolean letraCorrecta;
+        for (int i = 0; i<localidad.length(); i++){
+            letraCorrecta = true;
+            for (int j = 0; j<numeros.length(); j++){
+                if (localidad.charAt(i)==numeros.charAt(j)){
+                    letraCorrecta = false;
+                }
+            }
+            if (letraCorrecta==true){
+                localidadFiltrada+=localidad.charAt(i);
+            }
+        }
+        Log.v("direcciones", "Localidad filtrada: " + localidadFiltrada.trim());
     }
 
     private void deliverResultToReceiver(int resultCode, String message){
